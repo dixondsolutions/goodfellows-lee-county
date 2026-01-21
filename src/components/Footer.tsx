@@ -1,4 +1,18 @@
-export default function Footer() {
+import { useQuery } from "convex/react";
+import { api } from "../../convex/_generated/api";
+import { withConvexProvider } from "../lib/convex";
+
+function FooterInner() {
+    const settings = useQuery(api.queries.getAllSiteSettings);
+
+    const organizationName = settings?.organizationName || "Goodfellows of Lee County";
+    const tagline = settings?.tagline || "Helping those in need since 1918. A 100% volunteer-run organization.";
+    const address = settings?.address || "704 S. Lincoln Ave";
+    const city = settings?.city || "Dixon";
+    const state = settings?.state || "IL";
+    const zip = settings?.zip || "61021";
+    const email = settings?.email || "info@goodfellowsil.org";
+
     return (
         <footer className="bg-gray-900 text-white py-12">
             <div className="container-custom">
@@ -11,10 +25,10 @@ export default function Footer() {
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                                 </svg>
                             </div>
-                            <span className="font-bold">Goodfellows of Lee County</span>
+                            <span className="font-bold">{organizationName}</span>
                         </div>
                         <p className="text-gray-400 text-sm">
-                            Helping those in need since 1918. A 100% volunteer-run organization.
+                            {tagline}
                         </p>
                     </div>
 
@@ -33,9 +47,9 @@ export default function Footer() {
                     <div>
                         <h3 className="font-bold mb-4">Contact</h3>
                         <ul className="space-y-2 text-sm text-gray-400">
-                            <li>704 S. Lincoln Ave</li>
-                            <li>Dixon, IL 61021</li>
-                            <li><a href="mailto:info@goodfellowsil.org" className="hover:text-white">info@goodfellowsil.org</a></li>
+                            <li>{address}</li>
+                            <li>{city}, {state} {zip}</li>
+                            <li><a href={`mailto:${email}`} className="hover:text-white">{email}</a></li>
                         </ul>
                         <a href="/admin" className="text-xs text-gray-500 hover:text-gray-400 mt-4 inline-block">
                             Admin Login
@@ -44,9 +58,11 @@ export default function Footer() {
                 </div>
 
                 <div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-500">
-                    © {new Date().getFullYear()} Goodfellows of Lee County. All rights reserved.
+                    © {new Date().getFullYear()} {organizationName}. All rights reserved.
                 </div>
             </div>
         </footer>
     );
 }
+
+export default withConvexProvider(FooterInner);

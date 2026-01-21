@@ -1,18 +1,30 @@
 import { useState } from "react";
-import { useMutation } from "convex/react";
+import { useQuery, useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { withConvexProvider } from "../lib/convex";
 
-const donationAmounts = [25, 50, 100, 250];
+const defaultAmounts = [25, 50, 100, 250];
 
 function DonationSectionInner() {
+    const settings = useQuery(api.queries.getAllSiteSettings);
     const [selectedAmount, setSelectedAmount] = useState<number | null>(50);
     const [customAmount, setCustomAmount] = useState("");
-    const [donorInfo, setDonorInfo] = useState({ name: "", email: "" });
+    const [donorInfo, setDonorInfo] = useState({ firstName: "", email: "" });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
 
     const createDonation = useMutation(api.mutations.createDonation);
+
+    // CMS Settings
+    const title = settings?.donationTitle || "Make a Donation";
+    const subtitle = settings?.donationSubtitle || "Your support helps families in Lee County.";
+    const successTitle = settings?.donationSuccessTitle || "Thank You!";
+    const successMessage = settings?.donationSuccessMessage || "Your donation has been recorded. We truly appreciate your generosity.";
+
+    // Parse donation amounts from settings
+    const donationAmounts = settings?.donationAmounts
+        ? settings.donationAmounts.split(",").map((n: string) => parseInt(n.trim(), 10)).filter((n: number) => !isNaN(n))
+        : defaultAmounts;
 
     const getAmount = () => {
         if (customAmount) return parseFloat(customAmount);
@@ -28,9 +40,9 @@ function DonationSectionInner() {
         try {
             await createDonation({
                 amount,
-                donorName: donorInfo.name || "Anonymous",
-                donorEmail: donorInfo.email || undefined,
-                isAnonymous: !donorInfo.name,
+                firstName: donorInfo.firstName || "Anonymous",
+                email: donorInfo.email || "anonymous@example.com",
+                isAnonymous: !donorInfo.firstName,
             });
             setIsSuccess(true);
         } finally {
@@ -48,8 +60,8 @@ function DonationSectionInner() {
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
                         </div>
-                        <h2 className="text-2xl font-bold text-gray-900 mb-2">Thank You!</h2>
-                        <p className="text-gray-600">Your donation of ${getAmount().toFixed(2)} has been recorded.</p>
+                        <h2 className="text-2xl font-bold text-gray-900 mb-2">{successTitle}</h2>
+                        <p className="text-gray-600">{successMessage}</p>
                     </div>
                 </div>
             </section>
@@ -61,8 +73,8 @@ function DonationSectionInner() {
             <div className="container-custom">
                 <div className="max-w-xl mx-auto">
                     <div className="text-center mb-8">
-                        <h2 className="text-3xl font-bold text-gray-900 mb-4">Make a Donation</h2>
-                        <p className="text-gray-600">Your support helps families in Lee County.</p>
+                        <h2 className="text-3xl font-bold text-gray-900 mb-4">{title}</h2>
+                        <p className="text-gray-600">{subtitle}</p>
                     </div>
 
                     <form onSubmit={handleSubmit} className="card">
@@ -109,8 +121,8 @@ function DonationSectionInner() {
                                 <label>Name (optional)</label>
                                 <input
                                     type="text"
-                                    value={donorInfo.name}
-                                    onChange={(e) => setDonorInfo({ ...donorInfo, name: e.target.value })}
+                                    value={donorInfo.firstName}
+                                    onChange={(e) => setDonorInfo({ ...donorInfo, firstName: e.target.value })}
                                     placeholder="Anonymous"
                                 />
                             </div>

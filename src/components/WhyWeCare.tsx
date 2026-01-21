@@ -9,7 +9,21 @@ function WhyWeCareInner() {
 
 Every year our volunteer board of directors along with community members work to make sure every child in Lee County is treated the same — that they too, regardless of income, can have their own gift during the holiday season.`;
 
+    const title = settings?.whyWeCareTitle || "Why We Care";
     const content = settings?.whyWeCareContent || defaultContent;
+    const highlight = settings?.whyWeCareHighlight || "Whether you donate $2 or $1,000, every bit helps.";
+    const tagline = settings?.whyWeCareTagline || "Empowering the children of Lee County";
+
+    // Parse highlight text for dollar amounts to style them
+    const renderHighlight = () => {
+        const parts = highlight.split(/(\$[\d,]+)/g);
+        return parts.map((part, i) => {
+            if (part.startsWith('$')) {
+                return <span key={i} className="font-bold text-amber-600">{part}</span>;
+            }
+            return part;
+        });
+    };
 
     return (
         <section className="section bg-amber-500">
@@ -20,7 +34,7 @@ Every year our volunteer board of directors along with community members work to
                     </svg>
 
                     <h2 className="text-3xl font-bold text-white mb-6">
-                        Why We Care
+                        {title}
                     </h2>
 
                     <div className="text-white/90 text-lg leading-relaxed mb-8">
@@ -31,11 +45,10 @@ Every year our volunteer board of directors along with community members work to
 
                     <div className="bg-white rounded-xl p-6 max-w-xl mx-auto">
                         <p className="text-gray-700">
-                            Whether you donate <span className="font-bold text-amber-600">$2</span> or{" "}
-                            <span className="font-bold text-amber-600">$1,000</span>, every bit helps.
+                            {renderHighlight()}
                         </p>
                         <p className="text-xl font-bold text-amber-600 mt-2">
-                            Empowering the children of Lee County
+                            {tagline}
                         </p>
                     </div>
 

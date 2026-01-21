@@ -6,17 +6,24 @@ import { useEffect } from "react";
 function HeroInner() {
     const settings = useQuery(api.queries.getAllSiteSettings);
 
-    // Initialize Lucide icons after render
     useEffect(() => {
         if (typeof window !== 'undefined' && (window as any).lucide) {
             (window as any).lucide.createIcons();
         }
     }, [settings]);
 
+    const badge = settings?.heroBadge || "Serving Lee County Since 1918";
     const title = settings?.heroTitle || "What is the Goodfellows of Lee County?";
     const subtitle = settings?.heroSubtitle || "We are an organization that has been around 108 years helping those who need a helping hand. Our main giveaway is during the holiday season, but we assist people all year.";
     const buttonText = settings?.heroButtonText || "Apply Now";
     const buttonLink = settings?.heroButtonLink || "/apply";
+
+    const stat1Value = settings?.heroStat1Value || "108+";
+    const stat1Label = settings?.heroStat1Label || "Years of Service";
+    const stat2Value = settings?.heroStat2Value || "1000+";
+    const stat2Label = settings?.heroStat2Label || "Families Helped";
+    const stat3Value = settings?.heroStat3Value || "100%";
+    const stat3Label = settings?.heroStat3Label || "Volunteer Run";
 
     return (
         <section className="pt-28 pb-20 bg-gradient-to-b from-amber-50 to-white">
@@ -27,7 +34,7 @@ function HeroInner() {
                         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
                         </svg>
-                        <span>Serving Lee County Since 1918</span>
+                        <span>{badge}</span>
                     </div>
 
                     {/* Title */}
@@ -64,16 +71,16 @@ function HeroInner() {
                     {/* Stats */}
                     <div className="grid grid-cols-3 gap-6 mt-16 pt-8 border-t">
                         <div className="text-center">
-                            <div className="text-3xl font-bold text-amber-600">108+</div>
-                            <div className="text-sm text-gray-500 mt-1">Years of Service</div>
+                            <div className="text-3xl font-bold text-amber-600">{stat1Value}</div>
+                            <div className="text-sm text-gray-500 mt-1">{stat1Label}</div>
                         </div>
                         <div className="text-center">
-                            <div className="text-3xl font-bold text-amber-600">1000+</div>
-                            <div className="text-sm text-gray-500 mt-1">Families Helped</div>
+                            <div className="text-3xl font-bold text-amber-600">{stat2Value}</div>
+                            <div className="text-sm text-gray-500 mt-1">{stat2Label}</div>
                         </div>
                         <div className="text-center">
-                            <div className="text-3xl font-bold text-amber-600">100%</div>
-                            <div className="text-sm text-gray-500 mt-1">Volunteer Run</div>
+                            <div className="text-3xl font-bold text-amber-600">{stat3Value}</div>
+                            <div className="text-sm text-gray-500 mt-1">{stat3Label}</div>
                         </div>
                     </div>
                 </div>

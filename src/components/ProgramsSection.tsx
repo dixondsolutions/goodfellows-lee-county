@@ -1,3 +1,4 @@
+import React from "react";
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { withConvexProvider } from "../lib/convex";
@@ -20,7 +21,7 @@ const HomeIcon = () => (
     </svg>
 );
 
-const iconMap: Record<string, () => JSX.Element> = {
+const iconMap: Record<string, React.FC> = {
     "heart-handshake": HeartIcon,
     "gift": GiftIcon,
     "home": HomeIcon,
@@ -35,17 +36,21 @@ const defaultPrograms = [
 
 function ProgramsSectionInner() {
     const programs = useQuery(api.queries.getPrograms);
+    const settings = useQuery(api.queries.getAllSiteSettings);
     const displayPrograms = programs ?? defaultPrograms;
+
+    const sectionTitle = settings?.programsSectionTitle || "Our Programs";
+    const sectionSubtitle = settings?.programsSectionSubtitle || "Throughout the year, the Goodfellows of Lee County supports various initiatives to help those in need.";
 
     return (
         <section className="section bg-white" id="programs">
             <div className="container-custom">
                 <div className="text-center mb-12">
                     <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                        Our Programs
+                        {sectionTitle}
                     </h2>
                     <p className="text-gray-600 max-w-2xl mx-auto">
-                        Throughout the year, the Goodfellows of Lee County supports various initiatives to help those in need.
+                        {sectionSubtitle}
                     </p>
                 </div>
 

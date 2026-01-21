@@ -1,0 +1,27 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header";
+import Hero from "../components/Hero";
+import ProgramsSection from "../components/ProgramsSection";
+import WhyWeCare from "../components/WhyWeCare";
+import BoardSection from "../components/BoardSection";
+import DonationSection from "../components/DonationSection";
+import Footer from "../components/Footer";
+---
+
+<Layout
+  title="Goodfellows of Lee County - Helping Those in Need Since 1918"
+  description="For over 108 years, Goodfellows of Lee County has been helping those who need a helping hand. Our main giveaway is during the holiday season, but we assist people all year."
+>
+  <Header client:load currentPath="/" />
+
+  <main>
+    <Hero client:load />
+    <ProgramsSection client:load />
+    <WhyWeCare client:load />
+    <DonationSection client:load />
+    <BoardSection client:load />
+  </main>
+
+  <Footer />
+</Layout>

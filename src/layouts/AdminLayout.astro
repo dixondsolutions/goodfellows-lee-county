@@ -1,0 +1,124 @@
+---
+import { SignedIn, SignedOut, UserButton } from "@clerk/astro/components";
+import "../styles/global.css";
+
+const currentPath = Astro.url.pathname;
+
+const navItems = [
+    { href: "/admin/dashboard", label: "Dashboard", icon: "layout-dashboard" },
+    { href: "/admin/content", label: "Content", icon: "file-text" },
+    { href: "/admin/board", label: "Board Members", icon: "users" },
+    { href: "/admin/programs", label: "Programs", icon: "folder-heart" },
+    { href: "/admin/donations", label: "Donations", icon: "heart" },
+    {
+        href: "/admin/applications",
+        label: "Applications",
+        icon: "clipboard-list",
+    },
+    { href: "/admin/volunteers", label: "Volunteers", icon: "hand-helping" },
+    { href: "/admin/settings", label: "Settings", icon: "settings" },
+];
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Admin Dashboard - Goodfellows CMS</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+            rel="stylesheet"
+        />
+        <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer
+        ></script>
+        <script defer>
+            document.addEventListener("DOMContentLoaded", () => {
+                if (window.lucide) window.lucide.createIcons();
+            });
+        </script>
+    </head>
+    <body class="antialiased bg-gray-100">
+        <SignedOut>
+            <meta http-equiv="refresh" content="0;url=/admin" />
+        </SignedOut>
+
+        <SignedIn>
+            <div class="flex min-h-screen">
+                <!-- Sidebar -->
+                <aside class="w-64 bg-gray-900 text-white flex flex-col">
+                    <!-- Logo -->
+                    <div class="p-6 border-b border-gray-800">
+                        <a href="/" class="flex items-center gap-3">
+                            <div
+                                class="w-10 h-10 rounded-lg bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center"
+                            >
+                                <i
+                                    data-lucide="heart-handshake"
+                                    class="w-5 h-5 text-white"></i>
+                            </div>
+                            <div>
+                                <h1 class="text-lg font-bold">Goodfellows</h1>
+                                <p class="text-xs text-gray-400">Admin Panel</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Navigation -->
+                    <nav class="flex-1 p-4">
+                        <ul class="space-y-1">
+                            {
+                                navItems.map((item) => (
+                                    <li>
+                                        <a
+                                            href={item.href}
+                                            class={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+                                                currentPath === item.href
+                                                    ? "bg-primary-600 text-white"
+                                                    : "text-gray-400 hover:bg-gray-800 hover:text-white"
+                                            }`}
+                                        >
+                                            <i
+                                                data-lucide={item.icon}
+                                                class="w-5 h-5"
+                                            />
+                                            {item.label}
+                                        </a>
+                                    </li>
+                                ))
+                            }
+                        </ul>
+                    </nav>
+
+                    <!-- User Section -->
+                    <div class="p-4 border-t border-gray-800">
+                        <div class="flex items-center gap-3">
+                            <UserButton afterSignOutUrl="/admin" />
+                            <div class="text-sm">
+                                <p class="text-gray-400">Signed in</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Back to Site -->
+                    <div class="p-4 border-t border-gray-800">
+                        <a
+                            href="/"
+                            class="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm"
+                        >
+                            <i data-lucide="external-link" class="w-4 h-4"></i>
+                            View Live Site
+                        </a>
+                    </div>
+                </aside>
+
+                <!-- Main Content -->
+                <main class="flex-1 overflow-auto">
+                    <slot />
+                </main>
+            </div>
+        </SignedIn>
+    </body>
+</html>

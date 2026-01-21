@@ -1,0 +1,135 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import ContactForm from "../components/ContactForm";
+---
+
+<Layout
+    title="Contact Us - Goodfellows of Lee County"
+    description="Get in touch with Goodfellows of Lee County. We're here to answer your questions about our programs, volunteering, and how you can help."
+>
+    <Header client:load currentPath="/contact" />
+
+    <main class="pt-24">
+        <section class="section">
+            <div class="container-custom">
+                <div class="max-w-5xl mx-auto">
+                    <div class="text-center mb-12">
+                        <div
+                            class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent-100 text-accent-700 text-sm font-medium mb-6"
+                        >
+                            <i data-lucide="mail" class="w-4 h-4"></i>
+                            <span>Get in Touch</span>
+                        </div>
+
+                        <h1
+                            class="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
+                        >
+                            Contact <span class="gradient-text">Us</span>
+                        </h1>
+
+                        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                            Have questions about our programs, want to
+                            volunteer, or need assistance? We'd love to hear
+                            from you.
+                        </p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-12">
+                        <!-- Contact Info -->
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900 mb-6">
+                                Contact Information
+                            </h2>
+
+                            <div class="space-y-6">
+                                <div class="card flex items-start gap-4">
+                                    <div
+                                        class="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center flex-shrink-0"
+                                    >
+                                        <i
+                                            data-lucide="map-pin"
+                                            class="w-6 h-6 text-white"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-semibold text-gray-900">
+                                            Mailing Address
+                                        </h3>
+                                        <p class="text-gray-600">
+                                            Goodfellows of Lee County<br />
+                                            704 S. Lincoln Ave<br />
+                                            Dixon, IL 61021
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="card flex items-start gap-4">
+                                    <div
+                                        class="w-12 h-12 rounded-xl bg-gradient-to-br from-accent-400 to-accent-600 flex items-center justify-center flex-shrink-0"
+                                    >
+                                        <i
+                                            data-lucide="mail"
+                                            class="w-6 h-6 text-white"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-semibold text-gray-900">
+                                            Email
+                                        </h3>
+                                        <a
+                                            href="mailto:info@goodfellowsil.org"
+                                            class="text-primary-600 hover:underline"
+                                        >
+                                            info@goodfellowsil.org
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="flex items-center gap-4 mb-4">
+                                        <div
+                                            class="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center flex-shrink-0"
+                                        >
+                                            <i
+                                                data-lucide="clock"
+                                                class="w-6 h-6 text-white"></i>
+                                        </div>
+                                        <div>
+                                            <h3
+                                                class="font-semibold text-gray-900"
+                                            >
+                                                About Our Organization
+                                            </h3>
+                                        </div>
+                                    </div>
+                                    <p class="text-gray-600 text-sm">
+                                        Goodfellows of Lee County is an
+                                        all-volunteer organization. As we don't
+                                        have regular office hours, email is the
+                                        best way to reach us. We typically
+                                        respond within 1-2 business days.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Contact Form -->
+                        <div>
+                            <div class="card">
+                                <h2
+                                    class="text-2xl font-bold text-gray-900 mb-6"
+                                >
+                                    Send a Message
+                                </h2>
+
+                                <ContactForm client:load />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <Footer />
+</Layout>

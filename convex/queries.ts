@@ -79,9 +79,10 @@ export const getAllContentSections = query({
     args: { page: v.optional(v.string()) },
     handler: async (ctx, args) => {
         if (args.page) {
+            const page = args.page;
             return await ctx.db
                 .query("contentSections")
-                .withIndex("by_page", (q) => q.eq("page", args.page))
+                .withIndex("by_page", (q) => q.eq("page", page))
                 .collect();
         }
         return await ctx.db.query("contentSections").collect();

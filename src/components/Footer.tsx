@@ -5,13 +5,18 @@ import { withConvexProvider } from "../lib/convex";
 function FooterInner() {
     const settings = useQuery(api.queries.getAllSiteSettings);
 
+    // General settings
     const organizationName = settings?.organizationName || "Goodfellows of Lee County";
-    const tagline = settings?.tagline || "Helping those in need since 1918. A 100% volunteer-run organization.";
     const address = settings?.address || "704 S. Lincoln Ave";
     const city = settings?.city || "Dixon";
     const state = settings?.state || "IL";
     const zip = settings?.zip || "61021";
     const email = settings?.email || "info@goodfellowsil.org";
+
+    // Footer-specific settings
+    const tagline = settings?.footerTagline || settings?.tagline || "Helping those in need since 1918. A 100% volunteer-run organization.";
+    const showAdminLink = settings?.footerShowAdminLink !== "false";
+    const copyrightText = settings?.footerCopyrightText || "All rights reserved.";
 
     return (
         <footer className="bg-gray-900 text-white py-12">
@@ -51,14 +56,16 @@ function FooterInner() {
                             <li>{city}, {state} {zip}</li>
                             <li><a href={`mailto:${email}`} className="hover:text-white">{email}</a></li>
                         </ul>
-                        <a href="/admin" className="text-xs text-gray-500 hover:text-gray-400 mt-4 inline-block">
-                            Admin Login
-                        </a>
+                        {showAdminLink && (
+                            <a href="/admin" className="text-xs text-gray-500 hover:text-gray-400 mt-4 inline-block">
+                                Admin Login
+                            </a>
+                        )}
                     </div>
                 </div>
 
                 <div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-500">
-                    © {new Date().getFullYear()} {organizationName}. All rights reserved.
+                    © {new Date().getFullYear()} {organizationName}. {copyrightText}
                 </div>
             </div>
         </footer>

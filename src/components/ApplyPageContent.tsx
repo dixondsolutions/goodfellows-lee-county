@@ -23,6 +23,7 @@ function ApplyPageContentInner() {
 
     // Form section
     const formTitle = settings?.applyFormTitle || "Holiday Assistance Application";
+    const pdfTitle = settings?.applyPdfTitle || "Prefer Paper?";
     const pdfText = settings?.applyPdfText || "You can also download a PDF application and mail it in or drop it off at our office.";
 
     const eligibilityItems = [eligibility1, eligibility2, eligibility3, eligibility4];
@@ -117,7 +118,7 @@ function ApplyPageContentInner() {
                 <div className="container-custom">
                     <div className="max-w-2xl mx-auto text-center">
                         <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                            Prefer Paper?
+                            {pdfTitle}
                         </h2>
                         <p className="text-gray-600 mb-6">
                             {pdfText}

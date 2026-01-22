@@ -3,15 +3,13 @@ import { api } from "../../../convex/_generated/api";
 import { withConvexProvider } from "../../lib/convex";
 import { useState, useEffect } from "react";
 
-type TabKey = "general" | "home" | "apply" | "volunteers" | "contact" | "donation";
+type TabKey = "general" | "header" | "footer" | "colors";
 
 const TABS: { key: TabKey; label: string; icon: string }[] = [
     { key: "general", label: "General", icon: "settings" },
-    { key: "home", label: "Home Page", icon: "home" },
-    { key: "apply", label: "Apply Page", icon: "clipboard-list" },
-    { key: "volunteers", label: "Volunteers Page", icon: "users" },
-    { key: "contact", label: "Contact Page", icon: "mail" },
-    { key: "donation", label: "Donation Section", icon: "heart" },
+    { key: "header", label: "Header", icon: "layout" },
+    { key: "footer", label: "Footer", icon: "align-justify" },
+    { key: "colors", label: "Colors", icon: "palette" },
 ];
 
 function SettingsEditorInner() {
@@ -27,7 +25,7 @@ function SettingsEditorInner() {
     const defaults: Record<string, string> = {
         // General
         organizationName: "Goodfellows of Lee County",
-        tagline: "108 years of helping those in need",
+        tagline: "Helping those in need since 1918. A 100% volunteer-run organization.",
         email: "info@goodfellowsil.org",
         phone: "",
         address: "704 S. Lincoln Ave",
@@ -38,76 +36,26 @@ function SettingsEditorInner() {
         applicationEndDate: "October 31",
         currentYear: "2026",
 
-        // Home - Hero
-        heroTitle: "What is the Goodfellows of Lee County?",
-        heroSubtitle: "We are an organization that has been around 108 years helping those who need a helping hand. Our main giveaway is during the holiday season, but we assist people all year.",
-        heroBadge: "Serving Lee County Since 1918",
-        heroButtonText: "Apply Now",
-        heroButtonLink: "/apply",
-        heroStat1Value: "108+",
-        heroStat1Label: "Years of Service",
-        heroStat2Value: "1000+",
-        heroStat2Label: "Families Helped",
-        heroStat3Value: "100%",
-        heroStat3Label: "Volunteer Run",
+        // Header
+        headerLogoText: "Goodfellows",
+        headerShowLogo: "true",
+        headerNavHome: "Home",
+        headerNavVolunteers: "Volunteers",
+        headerNavApply: "Apply",
+        headerNavContact: "Contact",
+        headerCtaText: "Donate",
+        headerCtaLink: "/#donate",
 
-        // Home - Programs Section
-        programsSectionTitle: "Our Programs",
-        programsSectionSubtitle: "Throughout the year, the Goodfellows of Lee County supports various initiatives to help those in need.",
+        // Footer
+        footerTagline: "Helping those in need since 1918. A 100% volunteer-run organization.",
+        footerShowAdminLink: "true",
+        footerCopyrightText: "All rights reserved.",
 
-        // Home - Why We Care
-        whyWeCareTitle: "Why We Care",
-        whyWeCareContent: `One thing we're taught at a young age is to treat others as you want to be treated. The Goodfellows of Lee County don't just follow this rule, they live it.
-
-Every year our volunteer board of directors along with community members work to make sure every child in Lee County is treated the same — that they too, regardless of income, can have their own gift during the holiday season.`,
-        whyWeCareHighlight: "Whether you donate $2 or $1,000, every bit helps.",
-        whyWeCareTagline: "Empowering the children of Lee County",
-
-        // Home - Board Section
-        boardSectionTitle: "Our Board",
-        boardSectionSubtitle: "Meet the dedicated volunteers who make our mission possible.",
-
-        // Apply Page
-        applyHeroTitle: "Apply for Assistance",
-        applyHeroBadge: "2026 Applications",
-        applyHeroSubtitle: "If you're a Lee County resident in need of assistance, we're here to help. Applications for holiday assistance are accepted from September 1 through October 31.",
-        applyEligibilityTitle: "Eligibility Requirements",
-        applyEligibility1: "Must be a resident of Lee County, Illinois",
-        applyEligibility2: "Have children 17 years old or younger in the household",
-        applyEligibility3: "Apply between September 1 - October 31",
-        applyEligibility4: "Demonstrate financial need",
-        applyFormTitle: "Holiday Assistance Application",
-        applyPdfText: "You can also download a PDF application and mail it in or drop it off at our office.",
-
-        // Volunteers Page
-        volunteersHeroTitle: "Become a Volunteer",
-        volunteersHeroBadge: "Join Our Team",
-        volunteersHeroSubtitle: "The Goodfellows of Lee County is 100% volunteer-run. Every hour you contribute helps ensure that children in our community have a brighter holiday season.",
-        volunteersWaysTitle: "Ways to Help",
-        volunteersWay1Title: "Holiday Distribution",
-        volunteersWay1Description: "Help sort, wrap, and distribute gifts during our annual holiday giveaway event.",
-        volunteersWay2Title: "Application Processing",
-        volunteersWay2Description: "Assist with reviewing and processing applications from families in need.",
-        volunteersWay3Title: "Community Outreach",
-        volunteersWay3Description: "Help spread the word about our programs and fundraising efforts throughout the year.",
-        volunteersFormTitle: "Sign Up to Volunteer",
-        volunteersFormNote: "We'll reach out to you within 2-3 business days to discuss volunteer opportunities.",
-
-        // Contact Page
-        contactHeroTitle: "Contact Us",
-        contactHeroBadge: "Get in Touch",
-        contactHeroSubtitle: "Have questions about our programs, want to volunteer, or need assistance? We'd love to hear from you.",
-        contactInfoTitle: "Contact Information",
-        contactAboutTitle: "About Our Organization",
-        contactAboutText: "Goodfellows of Lee County is an all-volunteer organization. As we don't have regular office hours, email is the best way to reach us. We typically respond within 1-2 business days.",
-        contactFormTitle: "Send a Message",
-
-        // Donation Section
-        donationTitle: "Make a Donation",
-        donationSubtitle: "Your support helps families in Lee County.",
-        donationAmounts: "25,50,100,250",
-        donationSuccessTitle: "Thank You!",
-        donationSuccessMessage: "Your donation has been recorded. We truly appreciate your generosity.",
+        // Colors
+        primaryColor: "#f59e0b",
+        primaryColorDark: "#d97706",
+        accentColor: "#10b981",
+        accentColorDark: "#059669",
     };
 
     useEffect(() => {
@@ -135,7 +83,7 @@ Every year our volunteer board of directors along with community members work to
                 await updateSetting({ key, value });
             }
 
-            setSavedMessage("All settings saved!");
+            setSavedMessage("Settings saved!");
             setTimeout(() => setSavedMessage(""), 3000);
         } finally {
             setIsSaving(false);
@@ -153,7 +101,7 @@ Every year our volunteer board of directors along with community members work to
         );
     }
 
-    const renderInput = (key: string, label: string, type: "text" | "textarea" | "email" = "text", rows = 3) => (
+    const renderInput = (key: string, label: string, type: "text" | "textarea" | "email" | "color" = "text", rows = 3) => (
         <div key={key}>
             <label>{label}</label>
             {type === "textarea" ? (
@@ -162,6 +110,22 @@ Every year our volunteer board of directors along with community members work to
                     value={formData[key] || ""}
                     onChange={(e) => handleChange(key, e.target.value)}
                 />
+            ) : type === "color" ? (
+                <div className="flex items-center gap-3">
+                    <input
+                        type="color"
+                        value={formData[key] || "#000000"}
+                        onChange={(e) => handleChange(key, e.target.value)}
+                        className="w-12 h-10 p-1 rounded cursor-pointer"
+                    />
+                    <input
+                        type="text"
+                        value={formData[key] || ""}
+                        onChange={(e) => handleChange(key, e.target.value)}
+                        placeholder="#000000"
+                        className="flex-1"
+                    />
+                </div>
             ) : (
                 <input
                     type={type}
@@ -172,12 +136,25 @@ Every year our volunteer board of directors along with community members work to
         </div>
     );
 
+    const renderToggle = (key: string, label: string) => (
+        <div key={key} className="flex items-center gap-3">
+            <input
+                type="checkbox"
+                id={key}
+                checked={formData[key] === "true"}
+                onChange={(e) => handleChange(key, e.target.checked ? "true" : "false")}
+                className="w-5 h-5"
+            />
+            <label htmlFor={key} className="mb-0 cursor-pointer">{label}</label>
+        </div>
+    );
+
     return (
         <div className="p-8">
             <div className="flex items-center justify-between mb-8">
                 <div>
                     <h1 className="text-3xl font-bold text-gray-900">Site Settings</h1>
-                    <p className="text-gray-600 mt-1">Configure all content for the public website</p>
+                    <p className="text-gray-600 mt-1">Configure global site settings</p>
                 </div>
                 <div className="flex items-center gap-4">
                     {savedMessage && (
@@ -231,7 +208,7 @@ Every year our volunteer board of directors along with community members work to
                         <h2 className="text-lg font-semibold text-gray-900 mb-4">Organization Info</h2>
                         <div className="space-y-4">
                             {renderInput("organizationName", "Organization Name")}
-                            {renderInput("tagline", "Tagline")}
+                            {renderInput("tagline", "Tagline", "textarea", 2)}
                             {renderInput("email", "Contact Email", "email")}
                             {renderInput("phone", "Phone Number")}
                         </div>
@@ -258,184 +235,112 @@ Every year our volunteer board of directors along with community members work to
                 </div>
             )}
 
-            {/* Home Tab */}
-            {activeTab === "home" && (
+            {/* Header Tab */}
+            {activeTab === "header" && (
                 <div className="space-y-6">
                     <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                        <h2 className="text-lg font-semibold text-gray-900 mb-4">Hero Section</h2>
+                        <h2 className="text-lg font-semibold text-gray-900 mb-4">Logo & Branding</h2>
                         <div className="space-y-4">
-                            {renderInput("heroBadge", "Badge Text")}
-                            {renderInput("heroTitle", "Title")}
-                            {renderInput("heroSubtitle", "Subtitle", "textarea")}
-                            <div className="grid sm:grid-cols-2 gap-4">
-                                {renderInput("heroButtonText", "Button Text")}
-                                {renderInput("heroButtonLink", "Button Link")}
-                            </div>
+                            {renderInput("headerLogoText", "Logo Text")}
+                            {renderToggle("headerShowLogo", "Show Logo Icon")}
                         </div>
                     </div>
                     <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                        <h2 className="text-lg font-semibold text-gray-900 mb-4">Hero Stats</h2>
-                        <div className="grid sm:grid-cols-3 gap-4">
-                            <div className="space-y-4">
-                                {renderInput("heroStat1Value", "Stat 1 Value")}
-                                {renderInput("heroStat1Label", "Stat 1 Label")}
-                            </div>
-                            <div className="space-y-4">
-                                {renderInput("heroStat2Value", "Stat 2 Value")}
-                                {renderInput("heroStat2Label", "Stat 2 Label")}
-                            </div>
-                            <div className="space-y-4">
-                                {renderInput("heroStat3Value", "Stat 3 Value")}
-                                {renderInput("heroStat3Label", "Stat 3 Label")}
-                            </div>
+                        <h2 className="text-lg font-semibold text-gray-900 mb-4">Navigation Labels</h2>
+                        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                            {renderInput("headerNavHome", "Home Link")}
+                            {renderInput("headerNavVolunteers", "Volunteers Link")}
+                            {renderInput("headerNavApply", "Apply Link")}
+                            {renderInput("headerNavContact", "Contact Link")}
                         </div>
                     </div>
                     <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                        <h2 className="text-lg font-semibold text-gray-900 mb-4">Programs Section</h2>
-                        <div className="space-y-4">
-                            {renderInput("programsSectionTitle", "Title")}
-                            {renderInput("programsSectionSubtitle", "Subtitle", "textarea", 2)}
-                        </div>
-                    </div>
-                    <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                        <h2 className="text-lg font-semibold text-gray-900 mb-4">Why We Care Section</h2>
-                        <div className="space-y-4">
-                            {renderInput("whyWeCareTitle", "Title")}
-                            {renderInput("whyWeCareContent", "Content (use blank line for paragraphs)", "textarea", 5)}
-                            {renderInput("whyWeCareHighlight", "Highlight Text")}
-                            {renderInput("whyWeCareTagline", "Tagline")}
-                        </div>
-                    </div>
-                    <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                        <h2 className="text-lg font-semibold text-gray-900 mb-4">Board Section</h2>
-                        <div className="space-y-4">
-                            {renderInput("boardSectionTitle", "Title")}
-                            {renderInput("boardSectionSubtitle", "Subtitle", "textarea", 2)}
+                        <h2 className="text-lg font-semibold text-gray-900 mb-4">Call to Action Button</h2>
+                        <div className="grid sm:grid-cols-2 gap-4">
+                            {renderInput("headerCtaText", "Button Text")}
+                            {renderInput("headerCtaLink", "Button Link")}
                         </div>
                     </div>
                 </div>
             )}
 
-            {/* Apply Tab */}
-            {activeTab === "apply" && (
+            {/* Footer Tab */}
+            {activeTab === "footer" && (
                 <div className="space-y-6">
                     <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                        <h2 className="text-lg font-semibold text-gray-900 mb-4">Hero Section</h2>
+                        <h2 className="text-lg font-semibold text-gray-900 mb-4">Footer Content</h2>
                         <div className="space-y-4">
-                            {renderInput("applyHeroBadge", "Badge Text")}
-                            {renderInput("applyHeroTitle", "Title")}
-                            {renderInput("applyHeroSubtitle", "Subtitle", "textarea")}
+                            {renderInput("footerTagline", "Footer Tagline", "textarea", 2)}
+                            {renderInput("footerCopyrightText", "Copyright Text")}
                         </div>
                     </div>
                     <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                        <h2 className="text-lg font-semibold text-gray-900 mb-4">Eligibility Requirements</h2>
+                        <h2 className="text-lg font-semibold text-gray-900 mb-4">Footer Options</h2>
                         <div className="space-y-4">
-                            {renderInput("applyEligibilityTitle", "Section Title")}
-                            {renderInput("applyEligibility1", "Requirement 1")}
-                            {renderInput("applyEligibility2", "Requirement 2")}
-                            {renderInput("applyEligibility3", "Requirement 3")}
-                            {renderInput("applyEligibility4", "Requirement 4")}
+                            {renderToggle("footerShowAdminLink", "Show Admin Login Link")}
                         </div>
                     </div>
                     <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                        <h2 className="text-lg font-semibold text-gray-900 mb-4">Form Section</h2>
-                        <div className="space-y-4">
-                            {renderInput("applyFormTitle", "Form Title")}
-                            {renderInput("applyPdfText", "PDF Download Text", "textarea", 2)}
-                        </div>
+                        <h2 className="text-lg font-semibold text-gray-900 mb-4">Contact Info (from General)</h2>
+                        <p className="text-gray-500 text-sm">
+                            The footer automatically uses the organization name, address, and email from the General tab.
+                        </p>
                     </div>
                 </div>
             )}
 
-            {/* Volunteers Tab */}
-            {activeTab === "volunteers" && (
+            {/* Colors Tab */}
+            {activeTab === "colors" && (
                 <div className="space-y-6">
                     <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                        <h2 className="text-lg font-semibold text-gray-900 mb-4">Hero Section</h2>
-                        <div className="space-y-4">
-                            {renderInput("volunteersHeroBadge", "Badge Text")}
-                            {renderInput("volunteersHeroTitle", "Title")}
-                            {renderInput("volunteersHeroSubtitle", "Subtitle", "textarea")}
+                        <h2 className="text-lg font-semibold text-gray-900 mb-4">Primary Color (Amber/Gold)</h2>
+                        <p className="text-gray-500 text-sm mb-4">Used for buttons, highlights, and brand elements</p>
+                        <div className="grid sm:grid-cols-2 gap-4">
+                            {renderInput("primaryColor", "Primary Color", "color")}
+                            {renderInput("primaryColorDark", "Primary Dark (hover)", "color")}
                         </div>
-                    </div>
-                    <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                        <h2 className="text-lg font-semibold text-gray-900 mb-4">Ways to Help</h2>
-                        <div className="space-y-4">
-                            {renderInput("volunteersWaysTitle", "Section Title")}
-                            <div className="grid lg:grid-cols-3 gap-4">
-                                <div className="space-y-4 p-4 bg-gray-50 rounded-lg">
-                                    <h3 className="font-medium text-gray-700">Option 1</h3>
-                                    {renderInput("volunteersWay1Title", "Title")}
-                                    {renderInput("volunteersWay1Description", "Description", "textarea", 2)}
-                                </div>
-                                <div className="space-y-4 p-4 bg-gray-50 rounded-lg">
-                                    <h3 className="font-medium text-gray-700">Option 2</h3>
-                                    {renderInput("volunteersWay2Title", "Title")}
-                                    {renderInput("volunteersWay2Description", "Description", "textarea", 2)}
-                                </div>
-                                <div className="space-y-4 p-4 bg-gray-50 rounded-lg">
-                                    <h3 className="font-medium text-gray-700">Option 3</h3>
-                                    {renderInput("volunteersWay3Title", "Title")}
-                                    {renderInput("volunteersWay3Description", "Description", "textarea", 2)}
-                                </div>
+                        <div className="mt-4 flex gap-4">
+                            <div
+                                className="w-24 h-12 rounded-lg flex items-center justify-center text-white text-sm font-medium"
+                                style={{ backgroundColor: formData.primaryColor }}
+                            >
+                                Primary
+                            </div>
+                            <div
+                                className="w-24 h-12 rounded-lg flex items-center justify-center text-white text-sm font-medium"
+                                style={{ backgroundColor: formData.primaryColorDark }}
+                            >
+                                Hover
                             </div>
                         </div>
                     </div>
                     <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                        <h2 className="text-lg font-semibold text-gray-900 mb-4">Form Section</h2>
-                        <div className="space-y-4">
-                            {renderInput("volunteersFormTitle", "Form Title")}
-                            {renderInput("volunteersFormNote", "Note Text", "textarea", 2)}
+                        <h2 className="text-lg font-semibold text-gray-900 mb-4">Accent Color (Green)</h2>
+                        <p className="text-gray-500 text-sm mb-4">Used for secondary actions and accents</p>
+                        <div className="grid sm:grid-cols-2 gap-4">
+                            {renderInput("accentColor", "Accent Color", "color")}
+                            {renderInput("accentColorDark", "Accent Dark (hover)", "color")}
+                        </div>
+                        <div className="mt-4 flex gap-4">
+                            <div
+                                className="w-24 h-12 rounded-lg flex items-center justify-center text-white text-sm font-medium"
+                                style={{ backgroundColor: formData.accentColor }}
+                            >
+                                Accent
+                            </div>
+                            <div
+                                className="w-24 h-12 rounded-lg flex items-center justify-center text-white text-sm font-medium"
+                                style={{ backgroundColor: formData.accentColorDark }}
+                            >
+                                Hover
+                            </div>
                         </div>
                     </div>
-                </div>
-            )}
-
-            {/* Contact Tab */}
-            {activeTab === "contact" && (
-                <div className="space-y-6">
-                    <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                        <h2 className="text-lg font-semibold text-gray-900 mb-4">Hero Section</h2>
-                        <div className="space-y-4">
-                            {renderInput("contactHeroBadge", "Badge Text")}
-                            {renderInput("contactHeroTitle", "Title")}
-                            {renderInput("contactHeroSubtitle", "Subtitle", "textarea")}
-                        </div>
-                    </div>
-                    <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                        <h2 className="text-lg font-semibold text-gray-900 mb-4">Contact Info Card</h2>
-                        <div className="space-y-4">
-                            {renderInput("contactInfoTitle", "Info Section Title")}
-                            {renderInput("contactAboutTitle", "About Section Title")}
-                            {renderInput("contactAboutText", "About Section Text", "textarea")}
-                        </div>
-                    </div>
-                    <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                        <h2 className="text-lg font-semibold text-gray-900 mb-4">Form Section</h2>
-                        <div className="space-y-4">
-                            {renderInput("contactFormTitle", "Form Title")}
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {/* Donation Tab */}
-            {activeTab === "donation" && (
-                <div className="space-y-6">
-                    <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                        <h2 className="text-lg font-semibold text-gray-900 mb-4">Donation Section</h2>
-                        <div className="space-y-4">
-                            {renderInput("donationTitle", "Title")}
-                            {renderInput("donationSubtitle", "Subtitle")}
-                            {renderInput("donationAmounts", "Preset Amounts (comma-separated)")}
-                        </div>
-                    </div>
-                    <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                        <h2 className="text-lg font-semibold text-gray-900 mb-4">Success Message</h2>
-                        <div className="space-y-4">
-                            {renderInput("donationSuccessTitle", "Success Title")}
-                            {renderInput("donationSuccessMessage", "Success Message", "textarea", 2)}
-                        </div>
+                    <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6">
+                        <h3 className="font-semibold text-yellow-800 mb-2">Note about Colors</h3>
+                        <p className="text-yellow-700 text-sm">
+                            Color changes require CSS variable updates to take full effect. Currently, the site uses Tailwind CSS classes. Full dynamic color support will require additional configuration.
+                        </p>
                     </div>
                 </div>
             )}

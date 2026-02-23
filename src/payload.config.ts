@@ -38,7 +38,7 @@ export default buildConfig({
   globals: [SiteSettings, PageContent],
   editor: lexicalEditor(),
   db: postgresAdapter({
-    pool: { connectionString: process.env.DATABASE_URI || '' },
+    pool: { connectionString: process.env.DATABASE_URI || process.env.DATABASE_URL || '' },
   }),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

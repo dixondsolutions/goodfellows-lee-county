@@ -81,7 +81,7 @@ async function seed() {
     }
   }
 
-  // Update page content global with hero stats
+  // Update page content global
   try {
     await payload.updateGlobal({
       slug: 'page-content',
@@ -99,9 +99,25 @@ async function seed() {
             { value: '100%', label: 'Volunteer Run' },
           ],
         },
+        apply: {
+          heroBadge: '2026 Applications',
+          heroTitle: 'Apply for Assistance',
+          heroSubtitle:
+            "If you're a Lee County resident in need of assistance, we're here to help. Applications for holiday assistance are accepted from September 1 through October 31.",
+          eligibilityTitle: 'Eligibility Requirements',
+          eligibilityItems: [
+            { text: 'Must be a resident of Lee County, Illinois' },
+            { text: 'Have children 17 years old or younger in the household' },
+            { text: 'Apply between September 1 - October 31' },
+            { text: 'Demonstrate financial need' },
+          ],
+          pdfTitle: 'Download Application',
+          pdfText:
+            'Download a PDF application and mail it in or drop it off at our office.',
+        },
       },
     })
-    console.log('Updated page content with hero stats')
+    console.log('Updated page content')
   } catch {
     console.log('Error updating page content, skipping...')
   }
@@ -128,8 +144,8 @@ async function seed() {
         },
         headerLogoText: 'Goodfellows',
         headerShowLogo: true,
-        headerCtaText: 'Donate',
-        headerCtaLink: '/#donate',
+        headerCtaText: 'Apply Now',
+        headerCtaLink: '/apply',
         footerShowAdminLink: true,
         footerCopyrightText: 'All rights reserved.',
       },

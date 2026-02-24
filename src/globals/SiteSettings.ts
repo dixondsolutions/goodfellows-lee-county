@@ -58,13 +58,12 @@ export const SiteSettings: GlobalConfig = {
               type: 'group',
               fields: [
                 { name: 'home', type: 'text', defaultValue: 'Home' },
-                { name: 'volunteers', type: 'text', defaultValue: 'Volunteers' },
                 { name: 'apply', type: 'text', defaultValue: 'Apply' },
                 { name: 'contact', type: 'text', defaultValue: 'Contact' },
               ],
             },
-            { name: 'headerCtaText', type: 'text', defaultValue: 'Donate' },
-            { name: 'headerCtaLink', type: 'text', defaultValue: '/#donate' },
+            { name: 'headerCtaText', type: 'text', defaultValue: 'Apply Now' },
+            { name: 'headerCtaLink', type: 'text', defaultValue: '/apply' },
           ],
         },
         {

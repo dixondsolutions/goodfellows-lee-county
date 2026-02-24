@@ -38,6 +38,7 @@ next-env.d.ts
 
 # payload
 media/
+documents/
 
 # lock files
 bun.lockb

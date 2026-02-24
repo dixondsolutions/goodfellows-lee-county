@@ -130,71 +130,19 @@ export const PageContent: GlobalConfig = {
                   fields: [{ name: 'text', type: 'text', required: true }],
                 },
                 {
-                  name: 'formTitle',
-                  type: 'text',
-                  defaultValue: 'Holiday Assistance Application',
+                  name: 'pdfFile',
+                  type: 'upload',
+                  relationTo: 'documents',
+                  admin: {
+                    description: 'Upload the holiday application PDF form',
+                  },
                 },
-                { name: 'pdfTitle', type: 'text', defaultValue: 'Prefer Paper?' },
+                { name: 'pdfTitle', type: 'text', defaultValue: 'Download Application' },
                 {
                   name: 'pdfText',
                   type: 'textarea',
                   defaultValue:
-                    'You can also download a PDF application and mail it in or drop it off at our office.',
-                },
-              ],
-            },
-          ],
-        },
-        {
-          label: 'Volunteers Page',
-          fields: [
-            {
-              name: 'volunteers',
-              type: 'group',
-              fields: [
-                { name: 'heroBadge', type: 'text', defaultValue: 'Join Our Team' },
-                {
-                  name: 'heroTitle',
-                  type: 'text',
-                  defaultValue: 'Become a Volunteer',
-                },
-                {
-                  name: 'heroSubtitle',
-                  type: 'textarea',
-                  defaultValue:
-                    'The Goodfellows of Lee County is 100% volunteer-run. Every hour you contribute helps ensure that children in our community have a brighter holiday season.',
-                },
-                { name: 'waysTitle', type: 'text', defaultValue: 'Ways to Help' },
-                {
-                  name: 'waysToHelp',
-                  type: 'array',
-                  maxRows: 6,
-                  fields: [
-                    { name: 'title', type: 'text', required: true },
-                    { name: 'description', type: 'textarea', required: true },
-                    {
-                      name: 'icon',
-                      type: 'select',
-                      options: [
-                        { label: 'Calendar', value: 'calendar' },
-                        { label: 'Clipboard List', value: 'clipboard-list' },
-                        { label: 'Megaphone', value: 'megaphone' },
-                        { label: 'Heart', value: 'heart' },
-                        { label: 'Users', value: 'users' },
-                      ],
-                    },
-                  ],
-                },
-                {
-                  name: 'formTitle',
-                  type: 'text',
-                  defaultValue: 'Sign Up to Volunteer',
-                },
-                {
-                  name: 'formNote',
-                  type: 'textarea',
-                  defaultValue:
-                    "We'll reach out to you within 2-3 business days to discuss volunteer opportunities.",
+                    'Download a PDF application and mail it in or drop it off at our office.',
                 },
               ],
             },
@@ -232,35 +180,6 @@ export const PageContent: GlobalConfig = {
                     "Goodfellows of Lee County is an all-volunteer organization. As we don't have regular office hours, email is the best way to reach us. We typically respond within 1-2 business days.",
                 },
                 { name: 'formTitle', type: 'text', defaultValue: 'Send a Message' },
-              ],
-            },
-          ],
-        },
-        {
-          label: 'Donation Section',
-          fields: [
-            {
-              name: 'donation',
-              type: 'group',
-              fields: [
-                { name: 'title', type: 'text', defaultValue: 'Make a Donation' },
-                {
-                  name: 'subtitle',
-                  type: 'text',
-                  defaultValue: 'Your support helps families in Lee County.',
-                },
-                {
-                  name: 'presetAmounts',
-                  type: 'text',
-                  defaultValue: '25,50,100,250',
-                },
-                { name: 'successTitle', type: 'text', defaultValue: 'Thank You!' },
-                {
-                  name: 'successMessage',
-                  type: 'textarea',
-                  defaultValue:
-                    'Your donation has been recorded. We truly appreciate your generosity.',
-                },
               ],
             },
           ],

@@ -69,11 +69,9 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    documents: Document;
     'board-members': BoardMember;
     programs: Program;
-    donations: Donation;
-    applications: Application;
-    volunteers: Volunteer;
     'contact-messages': ContactMessage;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
@@ -84,11 +82,9 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    documents: DocumentsSelect<false> | DocumentsSelect<true>;
     'board-members': BoardMembersSelect<false> | BoardMembersSelect<true>;
     programs: ProgramsSelect<false> | ProgramsSelect<true>;
-    donations: DonationsSelect<false> | DonationsSelect<true>;
-    applications: ApplicationsSelect<false> | ApplicationsSelect<true>;
-    volunteers: VolunteersSelect<false> | VolunteersSelect<true>;
     'contact-messages': ContactMessagesSelect<false> | ContactMessagesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -180,6 +176,28 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "documents".
+ */
+export interface Document {
+  id: number;
+  /**
+   * A descriptive name for this document (e.g., "2026 Holiday Application Form")
+   */
+  title: string;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "board-members".
  */
 export interface BoardMember {
@@ -203,63 +221,6 @@ export interface Program {
   icon: 'heart-handshake' | 'gift' | 'home' | 'users' | 'heart' | 'shield' | 'star';
   order: number;
   isActive?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "donations".
- */
-export interface Donation {
-  id: number;
-  amount: number;
-  firstName: string;
-  lastName?: string | null;
-  email: string;
-  company?: string | null;
-  comment?: string | null;
-  isAnonymous?: boolean | null;
-  status: 'pending' | 'completed' | 'failed';
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "applications".
- */
-export interface Application {
-  id: number;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone?: string | null;
-  address?: {
-    street?: string | null;
-    city?: string | null;
-    state?: string | null;
-    zip?: string | null;
-  };
-  householdSize?: number | null;
-  childrenCount?: number | null;
-  childrenAges?: string | null;
-  needDescription?: string | null;
-  status: 'submitted' | 'under_review' | 'approved' | 'denied';
-  year: number;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "volunteers".
- */
-export interface Volunteer {
-  id: number;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone?: string | null;
-  message?: string | null;
-  status: 'new' | 'contacted' | 'active';
   updatedAt: string;
   createdAt: string;
 }
@@ -309,24 +270,16 @@ export interface PayloadLockedDocument {
         value: number | Media;
       } | null)
     | ({
+        relationTo: 'documents';
+        value: number | Document;
+      } | null)
+    | ({
         relationTo: 'board-members';
         value: number | BoardMember;
       } | null)
     | ({
         relationTo: 'programs';
         value: number | Program;
-      } | null)
-    | ({
-        relationTo: 'donations';
-        value: number | Donation;
-      } | null)
-    | ({
-        relationTo: 'applications';
-        value: number | Application;
-      } | null)
-    | ({
-        relationTo: 'volunteers';
-        value: number | Volunteer;
       } | null)
     | ({
         relationTo: 'contact-messages';
@@ -418,6 +371,24 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "documents_select".
+ */
+export interface DocumentsSelect<T extends boolean = true> {
+  title?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "board-members_select".
  */
 export interface BoardMembersSelect<T extends boolean = true> {
@@ -439,62 +410,6 @@ export interface ProgramsSelect<T extends boolean = true> {
   icon?: T;
   order?: T;
   isActive?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "donations_select".
- */
-export interface DonationsSelect<T extends boolean = true> {
-  amount?: T;
-  firstName?: T;
-  lastName?: T;
-  email?: T;
-  company?: T;
-  comment?: T;
-  isAnonymous?: T;
-  status?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "applications_select".
- */
-export interface ApplicationsSelect<T extends boolean = true> {
-  firstName?: T;
-  lastName?: T;
-  email?: T;
-  phone?: T;
-  address?:
-    | T
-    | {
-        street?: T;
-        city?: T;
-        state?: T;
-        zip?: T;
-      };
-  householdSize?: T;
-  childrenCount?: T;
-  childrenAges?: T;
-  needDescription?: T;
-  status?: T;
-  year?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "volunteers_select".
- */
-export interface VolunteersSelect<T extends boolean = true> {
-  firstName?: T;
-  lastName?: T;
-  email?: T;
-  phone?: T;
-  message?: T;
-  status?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -575,7 +490,6 @@ export interface SiteSetting {
   headerShowLogo?: boolean | null;
   headerNavLabels?: {
     home?: string | null;
-    volunteers?: string | null;
     apply?: string | null;
     contact?: string | null;
   };
@@ -632,25 +546,12 @@ export interface PageContent {
           id?: string | null;
         }[]
       | null;
-    formTitle?: string | null;
+    /**
+     * Upload the holiday application PDF form
+     */
+    pdfFile?: (number | null) | Document;
     pdfTitle?: string | null;
     pdfText?: string | null;
-  };
-  volunteers?: {
-    heroBadge?: string | null;
-    heroTitle?: string | null;
-    heroSubtitle?: string | null;
-    waysTitle?: string | null;
-    waysToHelp?:
-      | {
-          title: string;
-          description: string;
-          icon?: ('calendar' | 'clipboard-list' | 'megaphone' | 'heart' | 'users') | null;
-          id?: string | null;
-        }[]
-      | null;
-    formTitle?: string | null;
-    formNote?: string | null;
   };
   contact?: {
     heroBadge?: string | null;
@@ -660,13 +561,6 @@ export interface PageContent {
     aboutTitle?: string | null;
     aboutText?: string | null;
     formTitle?: string | null;
-  };
-  donation?: {
-    title?: string | null;
-    subtitle?: string | null;
-    presetAmounts?: string | null;
-    successTitle?: string | null;
-    successMessage?: string | null;
   };
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -701,7 +595,6 @@ export interface SiteSettingsSelect<T extends boolean = true> {
     | T
     | {
         home?: T;
-        volunteers?: T;
         apply?: T;
         contact?: T;
       };
@@ -768,27 +661,9 @@ export interface PageContentSelect<T extends boolean = true> {
               text?: T;
               id?: T;
             };
-        formTitle?: T;
+        pdfFile?: T;
         pdfTitle?: T;
         pdfText?: T;
-      };
-  volunteers?:
-    | T
-    | {
-        heroBadge?: T;
-        heroTitle?: T;
-        heroSubtitle?: T;
-        waysTitle?: T;
-        waysToHelp?:
-          | T
-          | {
-              title?: T;
-              description?: T;
-              icon?: T;
-              id?: T;
-            };
-        formTitle?: T;
-        formNote?: T;
       };
   contact?:
     | T
@@ -800,15 +675,6 @@ export interface PageContentSelect<T extends boolean = true> {
         aboutTitle?: T;
         aboutText?: T;
         formTitle?: T;
-      };
-  donation?:
-    | T
-    | {
-        title?: T;
-        subtitle?: T;
-        presetAmounts?: T;
-        successTitle?: T;
-        successMessage?: T;
       };
   updatedAt?: T;
   createdAt?: T;

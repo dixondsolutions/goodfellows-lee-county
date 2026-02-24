@@ -3,7 +3,6 @@ import configPromise from '@payload-config'
 import { Hero } from '@/components/Hero'
 import { ProgramsSection } from '@/components/ProgramsSection'
 import { WhyWeCare } from '@/components/WhyWeCare'
-import { DonationSection } from '@/components/DonationSection'
 import { BoardSection } from '@/components/BoardSection'
 
 export const metadata = {
@@ -52,7 +51,6 @@ export default async function HomePage() {
         programs={programs}
       />
       <WhyWeCare content={pageContent.whyWeCare} />
-      <DonationSection content={pageContent.donation} />
       <BoardSection content={pageContent.boardSection} members={boardMembers} />
     </main>
   )

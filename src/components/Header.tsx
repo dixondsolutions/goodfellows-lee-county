@@ -7,7 +7,6 @@ interface SiteSettings {
   headerShowLogo?: boolean | null
   headerNavLabels?: {
     home?: string | null
-    volunteers?: string | null
     apply?: string | null
     contact?: string | null
   } | null
@@ -26,15 +25,13 @@ export function Header({ settings, currentPath = '/' }: HeaderProps) {
   const logoText = settings?.headerLogoText || 'Goodfellows'
   const showLogo = settings?.headerShowLogo !== false
   const navHome = settings?.headerNavLabels?.home || 'Home'
-  const navVolunteers = settings?.headerNavLabels?.volunteers || 'Volunteers'
   const navApply = settings?.headerNavLabels?.apply || 'Apply'
   const navContact = settings?.headerNavLabels?.contact || 'Contact'
-  const ctaText = settings?.headerCtaText || 'Donate'
-  const ctaLink = settings?.headerCtaLink || '/#donate'
+  const ctaText = settings?.headerCtaText || 'Apply Now'
+  const ctaLink = settings?.headerCtaLink || '/apply'
 
   const navLinks = [
     { href: '/', label: navHome },
-    { href: '/volunteers', label: navVolunteers },
     { href: '/apply', label: navApply },
     { href: '/contact', label: navContact },
   ]

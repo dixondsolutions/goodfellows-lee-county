@@ -1,6 +1,5 @@
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
-import { ApplicationForm } from '@/components/ApplicationForm'
 
 export const metadata = {
   title: 'Apply for Help - Goodfellows of Lee County',
@@ -39,11 +38,13 @@ export default async function ApplyPage() {
           'Demonstrate financial need',
         ]
 
-  const formTitle = apply?.formTitle || 'Holiday Assistance Application'
-  const pdfTitle = apply?.pdfTitle || 'Prefer Paper?'
+  const pdfTitle = apply?.pdfTitle || 'Download Application'
   const pdfText =
     apply?.pdfText ||
-    'You can also download a PDF application and mail it in or drop it off at our office.'
+    'Download a PDF application and mail it in or drop it off at our office.'
+  const pdfFile = apply?.pdfFile
+  const pdfUrl =
+    typeof pdfFile === 'object' && pdfFile?.url ? pdfFile.url : null
 
   return (
     <main className="pt-24">
@@ -145,20 +146,6 @@ export default async function ApplyPage() {
         </div>
       </section>
 
-      {/* Application Form */}
-      <section className="section">
-        <div className="container-custom">
-          <div className="max-w-3xl mx-auto">
-            <div className="card">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
-                {formTitle}
-              </h2>
-              <ApplicationForm />
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Download PDF */}
       <section className="section bg-gray-50">
         <div className="container-custom">
@@ -167,26 +154,32 @@ export default async function ApplyPage() {
               {pdfTitle}
             </h2>
             <p className="text-gray-600 mb-6">{pdfText}</p>
-            <a
-              href="/application-form.pdf"
-              className="btn-secondary inline-flex items-center gap-2"
-              download
-            >
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+            {pdfUrl ? (
+              <a
+                href={pdfUrl}
+                className="btn-secondary inline-flex items-center gap-2"
+                download
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                />
-              </svg>
-              Download PDF Application
-            </a>
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                  />
+                </svg>
+                Download PDF Application
+              </a>
+            ) : (
+              <p className="text-gray-400 text-sm italic">
+                PDF application coming soon.
+              </p>
+            )}
           </div>
         </div>
       </section>

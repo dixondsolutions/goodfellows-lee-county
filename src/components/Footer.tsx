@@ -70,11 +70,6 @@ export function Footer({ settings }: FooterProps) {
                 </a>
               </li>
               <li>
-                <a href="/volunteers" className="hover:text-white">
-                  Volunteers
-                </a>
-              </li>
-              <li>
                 <a href="/apply" className="hover:text-white">
                   Apply for Help
                 </a>

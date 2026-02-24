@@ -7,11 +7,9 @@ import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import sharp from 'sharp'
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
+import { Documents } from './collections/Documents'
 import { BoardMembers } from './collections/BoardMembers'
 import { Programs } from './collections/Programs'
-import { Donations } from './collections/Donations'
-import { Applications } from './collections/Applications'
-import { Volunteers } from './collections/Volunteers'
 import { ContactMessages } from './collections/ContactMessages'
 import { SiteSettings } from './globals/SiteSettings'
 import { PageContent } from './globals/PageContent'
@@ -30,11 +28,9 @@ export default buildConfig({
   collections: [
     Users,
     Media,
+    Documents,
     BoardMembers,
     Programs,
-    Donations,
-    Applications,
-    Volunteers,
     ContactMessages,
   ],
   globals: [SiteSettings, PageContent],
@@ -51,7 +47,7 @@ export default buildConfig({
     ...(process.env.BLOB_READ_WRITE_TOKEN
       ? [
           vercelBlobStorage({
-            collections: { media: true },
+            collections: { media: true, documents: true },
             token: process.env.BLOB_READ_WRITE_TOKEN,
           }),
         ]

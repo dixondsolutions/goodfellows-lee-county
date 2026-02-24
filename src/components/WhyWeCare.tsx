@@ -25,7 +25,7 @@ Every year our volunteer board of directors along with community members work to
     return parts.map((part, i) => {
       if (part.startsWith('$')) {
         return (
-          <span key={i} className="font-bold text-amber-600">
+          <span key={i} className="font-bold text-primary-500">
             {part}
           </span>
         )
@@ -35,7 +35,7 @@ Every year our volunteer board of directors along with community members work to
   }
 
   return (
-    <section className="section bg-amber-500">
+    <section className="section bg-primary-500">
       <div className="container-custom">
         <div className="max-w-3xl mx-auto text-center">
           <svg
@@ -54,9 +54,9 @@ Every year our volunteer board of directors along with community members work to
 
           <h2 className="text-3xl font-bold text-white mb-6">{title}</h2>
 
-          <div className="text-white/90 text-lg leading-relaxed mb-8">
+          <div className="text-lg leading-relaxed mb-8">
             {text.split('\n\n').map((paragraph, i) => (
-              <p key={i} className="mb-4">
+              <p key={i} className="mb-4 text-white">
                 {paragraph}
               </p>
             ))}
@@ -64,12 +64,12 @@ Every year our volunteer board of directors along with community members work to
 
           <div className="bg-white rounded-xl p-6 max-w-xl mx-auto">
             <p className="text-gray-700">{renderHighlight()}</p>
-            <p className="text-xl font-bold text-amber-600 mt-2">{tagline}</p>
+            <p className="text-xl font-bold text-primary-500 mt-2">{tagline}</p>
           </div>
 
           <a
             href="#donate"
-            className="inline-flex items-center gap-2 bg-white text-amber-600 px-6 py-3 rounded-lg font-semibold mt-8 hover:bg-gray-50 transition-colors"
+            className="inline-flex items-center gap-2 bg-white text-primary-500 px-6 py-3 rounded-lg font-semibold mt-8 hover:bg-gray-50 transition-colors"
           >
             <svg
               className="w-5 h-5"

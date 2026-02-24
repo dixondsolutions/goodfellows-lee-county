@@ -44,7 +44,7 @@ export function BoardSection({ content, members }: BoardSectionProps) {
               .join('')
             return (
               <div key={member.id} className="text-center">
-                <div className="w-20 h-20 rounded-full bg-amber-500 text-white flex items-center justify-center mx-auto mb-4 text-xl font-bold">
+                <div className="w-20 h-20 rounded-full bg-primary-500 text-white flex items-center justify-center mx-auto mb-4 text-xl font-bold">
                   {initials}
                 </div>
                 <h3 className="font-bold text-gray-900">{member.name}</h3>

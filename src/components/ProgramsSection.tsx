@@ -116,7 +116,7 @@ export function ProgramsSection({ content, programs }: ProgramsSectionProps) {
             const IconComponent = iconMap[program.icon] || HeartIcon
             return (
               <div key={program.id} className="card">
-                <div className="w-12 h-12 rounded-lg bg-amber-500 flex items-center justify-center mb-4">
+                <div className="w-12 h-12 rounded-lg bg-primary-500 flex items-center justify-center mb-4">
                   <IconComponent />
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">

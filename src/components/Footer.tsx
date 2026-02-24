@@ -40,7 +40,7 @@ export function Footer({ settings }: FooterProps) {
           {/* About */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-amber-500 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-lg bg-primary-500 flex items-center justify-center">
                 <svg
                   className="w-5 h-5 text-white"
                   fill="none"
@@ -62,7 +62,7 @@ export function Footer({ settings }: FooterProps) {
 
           {/* Links */}
           <div>
-            <h3 className="font-bold mb-4">Quick Links</h3>
+            <h3 className="font-bold mb-4 text-white">Quick Links</h3>
             <ul className="space-y-2 text-sm text-gray-400">
               <li>
                 <a href="/" className="hover:text-white">
@@ -84,7 +84,7 @@ export function Footer({ settings }: FooterProps) {
 
           {/* Contact */}
           <div>
-            <h3 className="font-bold mb-4">Contact</h3>
+            <h3 className="font-bold mb-4 text-white">Contact</h3>
             <ul className="space-y-2 text-sm text-gray-400">
               <li>{address}</li>
               <li>

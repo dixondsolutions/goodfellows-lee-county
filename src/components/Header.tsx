@@ -43,7 +43,7 @@ export function Header({ settings, currentPath = '/' }: HeaderProps) {
           {/* Logo */}
           <a href="/" className="flex items-center gap-2">
             {showLogo && (
-              <div className="w-8 h-8 rounded-lg bg-amber-500 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-lg bg-primary-500 flex items-center justify-center">
                 <svg
                   className="w-5 h-5 text-white"
                   fill="none"
@@ -75,7 +75,7 @@ export function Header({ settings, currentPath = '/' }: HeaderProps) {
                 href={link.href}
                 className={`text-sm font-medium transition-colors ${
                   currentPath === link.href
-                    ? 'text-amber-600'
+                    ? 'text-primary-600'
                     : 'text-gray-600 hover:text-gray-900'
                 }`}
               >

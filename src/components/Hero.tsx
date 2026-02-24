@@ -28,11 +28,11 @@ export function Hero({ content }: HeroProps) {
       ]
 
   return (
-    <section className="pt-28 pb-20 bg-gradient-to-b from-amber-50 to-white">
+    <section className="pt-28 pb-20 bg-gradient-to-b from-primary-50 to-white">
       <div className="container-custom">
         <div className="max-w-3xl mx-auto text-center">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-100 text-amber-800 text-sm font-medium mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-100 text-primary-700 text-sm font-medium mb-6">
             <svg
               className="w-4 h-4"
               fill="none"
@@ -112,7 +112,7 @@ export function Hero({ content }: HeroProps) {
           <div className="grid grid-cols-3 gap-6 mt-16 pt-8 border-t">
             {stats.map((stat, i) => (
               <div key={i} className="text-center">
-                <div className="text-3xl font-bold text-amber-600">
+                <div className="text-3xl font-bold text-primary-500">
                   {stat.value}
                 </div>
                 <div className="text-sm text-gray-500 mt-1">{stat.label}</div>
